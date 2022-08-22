@@ -1,0 +1,75 @@
+# spring-boot-plus Common Config
+
+############################# 访问路径、端口tomcat start #############################
+server:
+  port: 8888
+  servlet:
+    context-path: /api
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      max: 1000
+      min-spare: 30
+############################# 访问路径、端口tomcat end ###############################
+
+################################ spring config start ###############################
+spring:
+  application:
+    name: web-api
+  jackson:
+    date-format: yyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  banner:
+    charset: UTF-8
+    location: classpath:banner.txt
+
+# 当前项目maven激活环境，例如：dev/test/uat/prod，对应pom.xml中profile设置值
+---
+spring:
+  profiles:
+    active: @profileActive@
+################################ spring config end #################################
+
+############################### HikariCP 数据源配置 start ################################
+---
+spring:
+  datasource:
+    main:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      minimum-idle: 10
+      maximum-pool-size: 20
+      idle-timeout: 10000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+############################### HikariCP 数据源配置 end ################################
+
+############################### Redis 公共配置 start ###############################
+---
+spring:
+  redis:
+    timeout: 10s
+    lettuce:
+      pool:
+        max-active: 200
+        max-idle: 8
+        max-wait: 10s
+        min-idle: 2
+      shutdown-timeout: 3s
+############################### Redis 公共配置 end ##################################
+
+
+############################## spring-boot-plus start ##############################
+
+############################### spring-boot-plus end ###############################
+
+
+
+#################################### springdoc start #################################
+springdoc:
+  packagesToScan: com.template.plus.webapi
+  swagger-ui:
+    path: /swagger-ui.html

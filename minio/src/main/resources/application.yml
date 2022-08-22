@@ -1,0 +1,50 @@
+############################# 访问路径、端口tomcat start #############################
+server:
+  port: 7001
+  servlet:
+    context-path: /minio
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      max: 1000
+      min-spare: 30
+############################# 访问路径、端口tomcat end ###############################
+
+################################ spring config start ###############################
+spring:
+  application:
+    name: minio
+  banner:
+    charset: UTF-8
+    location: classpath:banner.txt
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+# 当前项目maven激活环境，例如：dev/test/uat/prod，对应pom.xml中profile设置值
+---
+spring:
+  profiles:
+    active: @profileActive@
+################################ spring config end #################################
+
+minio:
+  enable: true
+  minio-configs:
+    - access-key: ${public.access-key}
+      bucket-name: applyfile
+      public-endpoint: http://${public.endpoint}
+      secret-key: ${public.secret-key}
+    - access-key: ${public.access-key}
+      bucket-name: restrictionlogo
+      public-endpoint: http://${public.endpoint}
+      secret-key: ${public.secret-key}
+    - access-key: ${public.access-key}
+      bucket-name: illegal
+      public-endpoint: http://${public.endpoint}
+      secret-key: ${public.secret-key}

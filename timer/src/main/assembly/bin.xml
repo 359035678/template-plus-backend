@@ -1,0 +1,67 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+
+	<id>bin</id>
+
+	<formats>
+		<format>zip</format>
+	</formats>
+
+	<fileSets>
+		<fileSet>
+			<filtered>true</filtered>
+			<directory>src/main/assembly/script</directory>
+			<includes>
+				<include>*.sh</include>
+				<include>*.bat</include>
+			</includes>
+			<outputDirectory>bin</outputDirectory>
+			<fileMode>0755</fileMode>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/resources/static</directory>
+			<outputDirectory>static</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<filtered>true</filtered>
+			<directory>src/main/resources</directory>
+			<outputDirectory>config</outputDirectory>
+			<includes>
+				<include>*.properties</include>
+				<include>*.yml</include>
+				<include>*.yaml</include>
+				<include>*.xml</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>src/main/resources</directory>
+			<outputDirectory>logs</outputDirectory>
+			<excludes>
+				<exclude>*</exclude>
+			</excludes>
+		</fileSet>
+
+		<fileSet>
+			<directory>target/classes/lib</directory>
+			<outputDirectory>lib</outputDirectory>
+		</fileSet>
+		<!-- 著作权、readme、版本说明 -->
+		<fileSet>
+			<directory>src/main/assembly/script</directory>
+			<includes>
+				<include>readme.txt</include>
+			</includes>
+			<outputDirectory>/</outputDirectory>
+		</fileSet>
+	</fileSets>
+
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>lib</outputDirectory>
+		</dependencySet>
+	</dependencySets>
+
+
+</assembly>
